@@ -16,7 +16,7 @@ class Login extends StatelessWidget {
           emailField(bloc),
           passwordField(bloc),
           Container(margin: const EdgeInsets.only(top: 8.0)),
-          submitButton(),
+          submitButton(bloc),
         ],
       ),
     );
@@ -56,10 +56,15 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget submitButton() {
-    return ElevatedButton(
-      onPressed: () {},
-      child: const Text('Submit'),
+  Widget submitButton(Bloc bloc) {
+    return StreamBuilder(
+      stream: bloc.submitValid,
+      builder: (context, snapshot) {
+        return ElevatedButton(
+          onPressed: snapshot.hasData ? () {} : null,
+          child: const Text('Submit'),
+        );
+      },
     );
   }
 }
